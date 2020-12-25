@@ -28,13 +28,14 @@ void insert_list(list_t * list, flake_t * flake){
 }
 
 void print_list(list_t * list){
-    cell_t * parse_cell = NULL; 
+    cell_t * parse_cell = NULL;
+    int i;
     if(list == NULL){
         fprintf(stderr, "List is NULL.\n");
         exit(EXIT_FAILURE);
     }
-    for(parse_cell = list->head; parse_cell != NULL; parse_cell = parse_cell->next)
-        printf("{%d, %d}", parse_cell->flake.x, parse_cell->flake.y);
+    for(parse_cell = list->head, i = 0; parse_cell != NULL; parse_cell = parse_cell->next, i++)
+        printf("Flake %d: {%d, %d}", i, parse_cell->flake.x, parse_cell->flake.y);
     printf("\n");
 }
 
@@ -63,4 +64,15 @@ void empty_list(list_t * list){
     }
     while(list->head != NULL)
         delete_list(list, list->head);
+}
+
+int list_count(list_t * list){
+    cell_t * parse_cell = NULL;
+    int i;
+    if(list == NULL){
+        fprintf(stderr, "List is NULL.\n");
+        exit(EXIT_FAILURE);
+    }
+    for(parse_cell = list->head, i = 0; parse_cell != NULL; parse_cell = parse_cell->next, i++){}
+    return i;
 }
