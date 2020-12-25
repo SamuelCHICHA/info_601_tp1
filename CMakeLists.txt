@@ -3,7 +3,7 @@ project(TP1 C)
 
 set(CMAKE_C_STANDARD 11)
 
-set(CMAKE_C_FLAGS "-Wall -Wextra -ansi -pedantic")
+set(CMAKE_C_FLAGS "-Wall -Wextra -ansi -pedantic -O3")
 
 include_directories(headers)
 
