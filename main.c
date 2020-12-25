@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <ncurses_extra.h>
 #include <list.h>
+#include <time.h>
+#include <unistd.h>
 
 
 /**
@@ -17,7 +19,8 @@
 
 int main() {
     int i;
-//    flake_t tmp;
+    char info[MAX_LENGTH_INFO];
+    flake_t tmp;
     info_w_t infoW;
     simu_w_t simuW;
     status_w_t statusW;
@@ -26,21 +29,25 @@ int main() {
     ncurses_initialiser();
     ncurses_couleurs();
     init_list(&flakes);
-//    init_flake(&tmp, 0, 0);
-//    insert_list(&flakes, &tmp);
     init_info_w(&infoW ,COLS, NB_INFOS, 0, 0);
     init_simu_w(&simuW, COLS * 3 / 4, LINES - NB_INFOS, 0, infoW.height);
     init_status_w(&statusW, COLS / 4, LINES - NB_INFOS, simuW.width, infoW.height);
+    srand(getpid() * time(NULL));
     add_infos(&infoW, "Press F2 to quit.");
     blocks = (block_t *)malloc(simuW.height * sizeof(block_t));
     for(i = 0; i  < LINES - NB_INFOS; i++)
         init_block(&blocks[i], rand() % simuW.width, i);
     display_blocks(&simuW, blocks, simuW.height);
     refresh_window(simuW.window);
-//    fall(&simuW, &flakes.head->flake, blocks, LINES - NB_INFOS);
+    print_status(&statusW, 0);
     timeout(1000);
     while (getch() != KEY_F(2)){
-        flakes_fall(&simuW, &flakes, blocks, LINES - NB_INFOS);
+        flakes_fall(&simuW, &flakes, blocks, simuW.height);
+        init_flake(&tmp, rand() % simuW.width, 0);
+        snprintf(info, MAX_LENGTH_INFO,"Une boule de neige est apparu en {%d, %d}.", tmp.x, tmp.y);
+        add_infos(&infoW, info);
+        insert_list(&flakes, &tmp);
+        print_status(&statusW, list_count(&flakes));
     }
     destroy_info_w(&infoW);
     destroy_simu_w(&simuW);
