@@ -9,6 +9,6 @@ typedef struct flake{
     int x, y;
 }flake_t;
 
-int init_flake(flake_t  *, int, int);
+void init_flake(flake_t  *, int, int);
 
 #endif /* FLAKE_H */

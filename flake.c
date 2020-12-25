@@ -2,14 +2,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int init_flake(flake_t  * flake, int x, int y){
-    int ret = 0;
+/**
+ *
+ * @param flake: flake_t *
+ * @param x: int
+ * @param y; int
+ */
+void init_flake(flake_t  * flake, int x, int y){
     if(flake == NULL) {
         fprintf(stderr, "Flake is NULL.\n");
-        ret = 1;
+        exit(EXIT_FAILURE);
     }
     flake->x = x;
     flake->y = y;
-    return ret;
 }
 
