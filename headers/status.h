@@ -13,6 +13,6 @@ typedef struct status_window{
 
 int init_status_w(status_w_t *, int width, int height, int x, int y);
 void destroy_status_w(status_w_t * s);
-void update_status(status_w_t * s, int nb_flakes);
+void print_status(status_w_t * s, int nb_flakes);
 
 #endif /* STATUS_H */

@@ -22,7 +22,7 @@ void destroy_status_w(status_w_t * s){
     destroy_window(s->window);
 }
 
-void update_status(status_w_t * s, int nb_flakes){
+void print_status(status_w_t * s, int nb_flakes){
     if(s == NULL){
         fprintf(stderr, "Error accessing status window.\n");
         exit(EXIT_FAILURE);
