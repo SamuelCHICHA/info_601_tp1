@@ -152,7 +152,6 @@ void display(simu_w_t * s, block_t * b, list_t * f, int nb_blocks){
 
 void flakes_fall(simu_w_t * s, list_t * f, block_t * b, int nb_blocks) {
     cell_t * parse = NULL;
-    flake_t new;
     if(s == NULL){
         fprintf(stderr, "Error accessing simulation window.\n");
         exit(EXIT_FAILURE);
@@ -166,11 +165,8 @@ void flakes_fall(simu_w_t * s, list_t * f, block_t * b, int nb_blocks) {
         exit(EXIT_FAILURE);
     }
     for(parse = f->head; parse != NULL; parse = parse->next){
-        if(fall(s, &parse->flake, b, nb_blocks)){
+        if(fall(s, &parse->flake, b, nb_blocks))
             delete_list(f, parse);
-            init_flake(&new, rand() % s->width, 0);
-            insert_list(f, &new);
-            display(s, b, f, nb_blocks);
-        }
+        display(s, b, f, nb_blocks);
     }
 }
